@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A century of New York homebuilding</title>
+<meta name="description" content="New homes completed in New York City each year from 1920 to 2025, with the 1920s tax exemption, 421-a and 485-x marked.">
+<link rel="stylesheet" href="https://use.typekit.net/qqk2vto.css">
+<link rel="stylesheet" href="https://vital-city-nyc.github.io/vital-city-design-system/charts/chart-theme.css">
+<style>
+:root{--vc-black:#050507;--vc-body:#262626;--vc-cloud:#dddddd;--vc-paper:#f7f7f4;--vc-charcoal:#707175;--vc-orange:#ff7c53;--vc-orange-tint:#ffd3c4;--vc-cerulean:#217ebe;--vc-peri:#9b9fbc;--sans:"halyard-text",Inter,"Helvetica Neue",Arial,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--sans);font-weight:400;font-size:1.0625rem;line-height:1.5;color:var(--vc-body);background:#fff}
+a{color:var(--vc-body);text-decoration:underline;text-decoration-color:var(--vc-cerulean);text-underline-offset:2px}
+a:hover{color:var(--vc-cerulean)}
+main{max-width:56rem;margin:0 auto;padding:2rem 1rem 3rem}
+figure.chart{margin:0 0 2rem;border:1px solid var(--vc-black);background:#fff;padding:1.4rem 1.4rem 1.1rem;position:relative}
+.legend{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;margin:0 0 .6rem;font-size:.8rem;color:var(--vc-body);align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:.4rem}
+.legend span[hidden]{display:none}
+.sw{display:inline-block;width:.85rem;height:.85rem;flex:none}
+.sw.year{background:var(--vc-orange)}
+.sw.avg{background:var(--vc-orange-tint);border-top:2px solid var(--vc-orange)}
+.sw.ten{background:var(--vc-black);width:.4rem}
+.sw.dot{width:.6rem;height:.6rem;border-radius:50%;background:var(--vc-black)}
+.sw.ref{height:0;border-top:2px dashed var(--vc-black)}
+.sw.band{background:#ecebe5}
+.toggle{font-size:.8rem;color:var(--vc-charcoal);display:inline-flex;align-items:center;gap:.4rem;margin:0 0 .5rem;cursor:pointer}
+.toggle input{margin:0;accent-color:var(--vc-black)}
+.plot{position:relative;touch-action:pan-y}
+.plot svg{display:block;width:100%;overflow:visible}
+.plot svg text{font-family:var(--sans)}
+.tip{position:absolute;z-index:5;pointer-events:none;background:#fff;border:1px solid var(--vc-black);padding:.45rem .6rem;font-size:.76rem;line-height:1.4;max-width:16rem;color:var(--vc-body)}
+.tip b{display:block;font-weight:700;color:var(--vc-black);margin-bottom:.15rem}
+.tip[hidden]{display:none}
+.notes{font-size:.8rem;color:var(--vc-charcoal);margin:0}
+.notes a{color:var(--vc-charcoal)}
+body.embed main{max-width:none;padding:0}
+body.embed figure.chart{border:none;margin:0 0 1.5rem}
+body.embed .notes{display:none}
+@media(max-width:600px){
+  figure.chart{padding:1.1rem 1rem .9rem}
+  .legend{font-size:.76rem}
+}
+</style>
+</head>
+<body>
+<main>
+<figure class="chart vc-chart" id="fig-century">
+  <h3 class="vc-chart__title">New York built 729,000 homes in the 1920s, nearly twice as many as in any decade&nbsp;since</h3>
+  <p class="vc-chart__subtitle">New homes completed in New York City each year, 1920 to 2025. For 1920 to 1959 only decade totals have been found, so those bars spread each decade’s total evenly across its years.</p>
+  <div class="legend" aria-hidden="true">
+    <span><i class="sw year"></i>Homes completed that year</span>
+    <span><i class="sw avg"></i>Decade total, yearly average</span>
+    <span><i class="sw dot"></i>1927, the record year</span>
+    <span><i class="sw ref"></i>Pace the city says it needs</span>
+    <span><i class="sw band"></i>Tax break for new housing</span>
+    <span id="ten-key" hidden><i class="sw ten"></i>Apartments in buildings for 3+ families</span>
+  </div>
+  <label class="toggle"><input type="checkbox" id="show-ten"> Show yearly apartment-building counts for 1920–1928</label>
+  <div class="plot" id="plot-century" role="img" aria-label="Bar chart of homes completed in New York City each year from 1920 to 2025. The 1920s averaged 72,900 a year, with a record 107,185 in 1927. The 1930s through 1950s averaged 16,700 to 32,200 a year. Yearly counts peaked at 60,031 in 1963, fell below 10,000 in several years of the 1980s and 1990s, and reached 38,691 in 2025. A dashed line marks 70,000 a year, the pace the city says it needs."></div>
+  <p class="vc-chart__source">Sources: Decade totals from the NYC Department of City Planning, published in <a href="https://wherewelive.cityofnewyork.us/wp-content/uploads/2025/12/WWL-2025-Appendix-A.pdf#page=53">Where We Live NYC 2025, Appendix A</a> (rounded to the thousand). Yearly counts for 1960–1966 from the Rent Guidelines Board’s <a href="https://rentguidelinesboard.cityofnewyork.us/wp-content/uploads/2019/08/06book.pdf#page=129">Housing NYC 2006</a> and for 1967–2025 from its <a href="https://rentguidelinesboard.cityofnewyork.us/wp-content/uploads/2026/05/2026-HSR.pdf">2026 Housing Supply Report</a>, based on certificates of occupancy for new buildings. The 1927 figure is from the board’s <a href="https://rentguidelinesboard.cityofnewyork.us/wp-content/uploads/2025/11/Intro_2025.pdf#page=24">introduction to rent regulation</a> (2025). Apartment-building counts for 1920–1928 are from the <a href="https://hdl.handle.net/2027/uc1.b5334114">Report of the State Board of Housing, 1928–29</a>, Table VI. The 70,000 line is a tenth of the roughly 700,000 homes the city’s <a href="https://wherewelive.cityofnewyork.us/wp-content/uploads/2026/08/Fair-Housing-Growth-Strategy_Draft-Report.pdf">draft Fair Housing Growth Strategy</a> (August 2026) says it needs over the next decade. Shading marks when each tax break applied to new construction; it doesn’t show that the break caused the building. <a href="methodology.html">Methodology</a>. <a href="data.csv" download>Download the data</a>.</p>
+  <div class="tip" id="tip" hidden></div>
+</figure>
+
+<figure class="chart vc-chart" id="fig-stock">
+  <h3 class="vc-chart__title">Almost one in five homes standing today went up in the 1920s</h3>
+  <p class="vc-chart__subtitle">Homes in New York City by the decade their building was completed, from the city’s 2026 tax-lot records. The 2020s are not over.</p>
+  <div class="plot" id="plot-stock" role="img" aria-label="Bar chart of the 3.7 million homes in New York City today by decade built. The 1920s account for 696,066, or 18.6%, the most of any decade. The 1930s follow with 12.5%."></div>
+  <p class="vc-chart__source">Source: NYC Department of City Planning, <a href="https://data.cityofnewyork.us/d/64uk-42ks">PLUTO tax-lot data</a> (August 2026 release), residential units summed by year built. Counts only buildings still standing. The city estimates many older buildings’ years: 44% of homes are in buildings dated to a year ending in 0 or 5. The 20,024 homes with no year are left out. <a href="methodology.html">Methodology</a>.</p>
+</figure>
+
+<p class="notes"><a href="methodology.html">Methodology</a> · <a href="docs/how-i-built-this.html">How I built this</a> · <a href="data.csv" download>Download the data</a></p>
+</main>
+<script>
+// Embed mode: ?embed=1 strips the card border and page padding so this page
+// can sit inside a Ghost HTML card, and posts its height to the parent.
+if (new URLSearchParams(location.search).get('embed') === '1') {
+  document.body.classList.add('embed');
+  const postHeight = () => {
+    const h = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+    parent.postMessage({ type: 'vc-embed-height', id: 'nyc-housing-century', height: h }, '*');
+  };
+  window.addEventListener('load', postHeight);
+  window.addEventListener('resize', postHeight);
+  let n = 0;
+  const t = setInterval(() => { postHeight(); if (++n > 20) clearInterval(t); }, 300);
+}
+
+const C={ink:"#050507",body:"#262626",cloud:"#dddddd",charcoal:"#707175",orange:"#ff7c53",tint:"#ffd3c4",peri:"#9b9fbc",band:"#ecebe5",band2:"#f5f4f0"};
+const NS="http://www.w3.org/2000/svg";
+const $=s=>document.querySelector(s);
+const fmt=n=>n.toLocaleString("en-US");
+function add(p,tag,attrs,text){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(text!=null)e.textContent=text;p.appendChild(e);return e}
+
+// Tax-break periods, as fractional years. 1920s: the city ordinance took effect
+// Feb. 15, 1921; buildings had to start by April 1, 1925 (Chapter 87, Laws of
+// 1924); the break ran to Jan. 30, 1932. 421-a: enacted 1971, expired June 15,
+// 2022. 485-x: enacted April 20, 2024.
+const BANDS=[
+  {label:"1920s exemption",from:1921.12,to:1925.25,until:1932.08,
+   tip:"Homes started from February 1921 to April 1, 1925 paid no city property tax on up to $5,000 of building value per home ($1,000 a room) through January 1932. The land was still taxed. Apartment buildings got a smaller break after 1923."},
+  {label:"421-a",from:1971,to:2022.45,
+   tip:"Property-tax exemption for new residential buildings, 1971 to June 15, 2022."},
+  {label:"485-x",from:2024.3,to:2026,
+   tip:"Successor to 421-a, enacted April 20, 2024."}
+];
+
+let DATA, showTen=false;
+const tip=$("#tip");
+
+function showTip(html,evt,fig){
+  tip.innerHTML=html; tip.hidden=false;
+  const r=fig.getBoundingClientRect();
+  const x=evt.clientX-r.left, y=evt.clientY-r.top;
+  const w=tip.offsetWidth, h=tip.offsetHeight;
+  let left=x+14; if(left+w>r.width-8) left=x-w-14; if(left<8) left=8;
+  let top=y-h-12; if(top<8) top=y+16;
+  tip.style.left=left+"px"; tip.style.top=top+"px";
+}
+function hideTip(){tip.hidden=true}
+
+function decadeOf(y){return y<1930?"1920s":y<1940?"1930s":y<1950?"1940s":"1950s"}
+
+function drawCentury(){
+  const host=$("#plot-century"); host.innerHTML="";
+  const W=host.clientWidth, small=W<560;
+  const H=small?300:390;
+  const m={t:small?30:34,r:small?4:8,b:24,l:small?38:48};
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const y0=1920,y1=2026, ymax=110000;
+  const X=y=>m.l+(y-y0)/(y1-y0)*iw;
+  const Y=v=>m.t+ih-v/ymax*ih;
+  const slot=iw/(y1-y0);
+  const svg=add(host,"svg",{viewBox:`0 0 ${W} ${H}`,height:H});
+
+  // Tax-break bands behind everything
+  for(const b of BANDS){
+    if(b.until) add(svg,"rect",{x:X(b.to),y:m.t,width:X(b.until)-X(b.to),height:ih,fill:C.band2});
+    add(svg,"rect",{x:X(b.from),y:m.t,width:X(b.to)-X(b.from),height:ih,fill:C.band});
+    const lx=b.label==="485-x"?X(b.to):X(b.from)+3;
+    add(svg,"text",{x:lx,y:m.t-6,"font-size":small?10:11,fill:C.charcoal,"text-anchor":b.label==="485-x"?"end":"start"},b.label);
+  }
+
+  // Gridlines and y labels
+  const ticks=small?[0,50000,100000]:[0,25000,50000,75000,100000];
+  for(const t of ticks){
+    add(svg,"line",{x1:m.l,x2:W-m.r,y1:Y(t),y2:Y(t),stroke:t===0?C.ink:C.cloud,"stroke-width":1});
+    add(svg,"text",{x:m.l-6,y:Y(t)+4,"font-size":11,fill:C.charcoal,"text-anchor":"end"},t===0?"0":(small?t/1000+"k":fmt(t)));
+  }
+
+  // Decade-average blocks, 1920s to 1950s
+  for(const d0 of [1920,1930,1940,1950]){
+    const v=DATA.decades[d0+"s"]/10;
+    const x=X(d0)+slot*.1, w=slot*10-slot*.2;
+    add(svg,"rect",{x,y:Y(v),width:w,height:Y(0)-Y(v),fill:C.tint});
+    add(svg,"line",{x1:x,x2:x+w,y1:Y(v),y2:Y(v),stroke:C.orange,"stroke-width":2});
+  }
+  if(!small) add(svg,"text",{x:X(1945),y:Y(DATA.decades["1950s"]/10)-30,"font-size":11,fill:C.charcoal,"text-anchor":"middle"},"Yearly counts not found for 1929–1959");
+
+  // Optional: apartments in tenements, 1920-1928
+  if(showTen){
+    for(const t of DATA.tenements){
+      const w=Math.max(2,slot*.45);
+      add(svg,"rect",{x:X(t.y)+(slot-w)/2,y:Y(t.v),width:w,height:Y(0)-Y(t.v),fill:C.ink});
+    }
+  }
+
+  // Yearly bars, 1960-2025
+  for(const b of DATA.bars.filter(b=>b.kind==="year")){
+    const w=Math.max(1,slot*.78);
+    add(svg,"rect",{x:X(b.y)+(slot-w)/2,y:Y(b.v),width:w,height:Y(0)-Y(b.v),fill:C.orange});
+  }
+
+  // Reference line: 70,000 a year
+  add(svg,"line",{x1:m.l,x2:W-m.r,y1:Y(70000),y2:Y(70000),stroke:C.ink,"stroke-width":1.5,"stroke-dasharray":"5 4"});
+  const refLabel=small?"70,000 a year: the pace the city says it needs":"70,000 a year: the pace for the 700,000 homes the city says it needs over the next decade";
+  add(svg,"text",{x:W-m.r,y:Y(70000)-6,"font-size":small?10.5:11.5,fill:C.ink,"text-anchor":"end","font-weight":700},refLabel);
+
+  // 1927 record
+  const px=X(1927)+slot/2, py=Y(DATA.peak1927);
+  add(svg,"circle",{cx:px,cy:py,r:small?3.5:4.5,fill:C.ink});
+  add(svg,"text",{x:px+8,y:py+4,"font-size":small?10.5:11.5,fill:C.ink,"font-weight":700},small?"1927: 107,185":"1927: 107,185 homes, the record");
+
+  // Callouts for the modern series
+  const call=(yr,txt,anchor)=>{const v=DATA.bars.find(b=>b.y===yr).v;add(svg,"text",{x:anchor==="end"?X(yr)+slot:X(yr)+slot/2,y:Y(v)-6,"font-size":small?10:11,fill:C.body,"text-anchor":anchor},txt)};
+  call(1963,small?"1963: 60,031":"1963: 60,031","middle");
+  call(2025,small?"2025: 38,691":"2025: 38,691","end");
+
+  // X axis
+  const xt=small?[1920,1950,1980,2010]:[1920,1930,1940,1950,1960,1970,1980,1990,2000,2010,2020];
+  for(const t of xt){
+    add(svg,"line",{x1:X(t),x2:X(t),y1:Y(0),y2:Y(0)+4,stroke:C.ink});
+    add(svg,"text",{x:X(t),y:H-6,"font-size":11,fill:C.charcoal,"text-anchor":"middle"},t);
+  }
+
+  // Hover targets: one per year
+  const fig=$("#fig-century");
+  for(let yr=y0;yr<2026;yr++){
+    const r=add(svg,"rect",{x:X(yr),y:m.t,width:slot,height:ih,fill:"transparent"});
+    const html=()=>{
+      let s;
+      if(yr<1960){
+        const d=decadeOf(yr), tot=DATA.decades[d];
+        s=`<b>${yr}</b>${d}: ${fmt(tot)} homes completed in the decade, ${fmt(tot/10)} a year on average.`;
+        if(yr>=1929) s+=` No yearly count found.`;
+        if(yr===1927) s+=`<br>1927 alone: ${fmt(DATA.peak1927)} homes, the record.`;
+        const t=DATA.tenements.find(t=>t.y===yr);
+        if(t) s+=`<br>Apartments in buildings for three or more families: ${fmt(t.v)}.`;
+      } else {
+        s=`<b>${yr}</b>${fmt(DATA.bars.find(b=>b.y===yr).v)} homes completed.`;
+      }
+      const band=BANDS.find(b=>yr>=Math.floor(b.from)&&yr<Math.ceil(b.until||b.to));
+      if(band) s+=`<br><span style="color:${C.charcoal}">${band.label}: ${band.tip}</span>`;
+      return s;
+    };
+    r.addEventListener("mousemove",e=>showTip(html(),e,fig));
+    r.addEventListener("mouseleave",hideTip);
+    r.addEventListener("click",e=>showTip(html(),e,fig));
+  }
+}
+
+function drawStock(){
+  const host=$("#plot-stock"); host.innerHTML="";
+  const W=host.clientWidth, small=W<560;
+  const rows=DATA.stock;
+  const H=small?250:280;
+  const m={t:22,r:4,b:small?38:26,l:4};
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const max=Math.max(...rows.map(r=>r.s));
+  const slot=iw/rows.length;
+  const svg=add(host,"svg",{viewBox:`0 0 ${W} ${H}`,height:H});
+  add(svg,"line",{x1:m.l,x2:W-m.r,y1:m.t+ih,y2:m.t+ih,stroke:C.ink});
+  rows.forEach((r,i)=>{
+    const h=r.s/max*ih, x=m.l+i*slot+slot*.12, w=slot*.76;
+    const focal=r.d==="1920s";
+    add(svg,"rect",{x,y:m.t+ih-h,width:w,height:h,fill:focal?C.orange:C.peri});
+    // On phones, label only the focal bar's share and every other decade; the tooltip has the rest.
+    if(!small||focal) add(svg,"text",{x:x+w/2,y:m.t+ih-h-5,"font-size":small?10:11,fill:focal?C.ink:C.body,"text-anchor":"middle","font-weight":focal?700:400},(r.s*100).toFixed(1)+"%");
+    if(!small||i%2===1) add(svg,"text",{x:x+w/2,y:H-(small?22:8),"font-size":small?9.5:11,fill:C.charcoal,"text-anchor":"middle"},r.d==="before 1900"?"Before 1900":r.d);
+    const hit=add(svg,"rect",{x:m.l+i*slot,y:m.t,width:slot,height:ih,fill:"transparent"});
+    const fig=$("#fig-stock");
+    const html=`<b>${r.d==="before 1900"?"Before 1900":r.d}</b>${fmt(r.v)} homes, ${(r.s*100).toFixed(1)}% of the city’s ${fmt(DATA.stockTotal)}.`;
+    hit.addEventListener("mousemove",e=>{fig.appendChild(tip);showTip(html,e,fig)});
+    hit.addEventListener("mouseleave",hideTip);
+    hit.addEventListener("click",e=>{fig.appendChild(tip);showTip(html,e,fig)});
+  });
+  if(small) add(svg,"text",{x:W/2,y:H-4,"font-size":9.5,fill:C.charcoal,"text-anchor":"middle"},"Decade built");
+}
+
+function drawAll(){$("#fig-century").appendChild(tip);hideTip();drawCentury();drawStock()}
+
+$("#show-ten").addEventListener("change",e=>{showTen=e.target.checked;$("#ten-key").hidden=!showTen;drawAll()});
+$("#plot-century").addEventListener("mouseenter",()=>$("#fig-century").appendChild(tip));
+let rt; window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(drawAll,120)});
+
+fetch("data.json").then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(d=>{DATA=d;drawAll()})
+  .catch(()=>{$("#plot-century").textContent="The chart’s data didn’t load. Try reloading the page."});
+</script>
+</body>
+</html>

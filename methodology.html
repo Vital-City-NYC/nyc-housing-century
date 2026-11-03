@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Homebuilding methodology</title>
+<link rel="stylesheet" href="https://use.typekit.net/qqk2vto.css">
+<style>
+:root{--vc-black:#050507;--vc-body:#262626;--vc-cloud:#dddddd;--vc-paper:#f7f7f4;--vc-charcoal:#707175;--vc-cerulean:#217ebe;--sans:"halyard-text",Inter,"Helvetica Neue",Arial,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--sans);font-size:1rem;line-height:1.55;color:var(--vc-body);background:#fff}
+main{max-width:46rem;margin:0 auto;padding:2rem 1rem 3rem}
+h1{font-weight:900;font-size:1.6rem;line-height:1.2;color:var(--vc-black);margin:0 0 .5rem}
+h2{font-weight:700;font-size:1.15rem;color:var(--vc-black);margin:2rem 0 .5rem}
+p,li{margin:0 0 .7rem}
+a{color:var(--vc-body);text-decoration-color:var(--vc-cerulean);text-underline-offset:2px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:.5rem 0 1rem}
+th,td{text-align:left;vertical-align:top;padding:.45rem .5rem;border-bottom:1px solid var(--vc-cloud)}
+th{background:var(--vc-black);color:#fff;font-weight:700}
+.wrap{overflow-x:auto}
+.dek{color:var(--vc-charcoal);margin-bottom:1.5rem}
+</style>
+</head>
+<body>
+<main>
+<p><a href="./">← Back to the charts</a></p>
+<h1>How the homebuilding charts were made</h1>
+<p class="dek">Sources, calculations and limits for “New York built 729,000 homes in the 1920s” and “Almost one in five homes standing today went up in the 1920s.” Updated Nov. 3, 2026. The judgment calls are logged in <a href="docs/how-i-built-this.html">How I built this</a>.</p>
+
+<h2>What each bar counts</h2>
+<div class="wrap"><table>
+<tr><th>Years</th><th>What the bar shows</th><th>Source</th></tr>
+<tr><td>1920–1959</td><td>The decade’s total of homes completed, divided by 10. The same height for each year of the decade.</td><td>NYC Department of City Planning, published in <a href="https://wherewelive.cityofnewyork.us/wp-content/uploads/2025/12/WWL-2025-Appendix-A.pdf#page=53">Where We Live NYC 2025, Appendix A</a>, Figure 5.73, page 53. Rounded to the thousand.</td></tr>
+<tr><td>1927 (dot)</td><td>Homes completed that year: 107,185.</td><td>Rent Guidelines Board, <a href="https://rentguidelinesboard.cityofnewyork.us/wp-content/uploads/2025/11/Intro_2025.pdf#page=24">An Introduction to the New York City Rent Guidelines Board</a> (November 2025), Table II, page 12.</td></tr>
+<tr><td>1920–1928 (optional black bars)</td><td>Apartments completed in buildings for three or more families (legally, tenements). One- and two-family houses are not included.</td><td><a href="https://hdl.handle.net/2027/uc1.b5334114">Report of the State Board of Housing, 1928–29</a>, Table VI, page 65, from Tenement House Department records.</td></tr>
+<tr><td>1960–1966</td><td>Homes completed that year.</td><td>Rent Guidelines Board, <a href="https://rentguidelinesboard.cityofnewyork.us/wp-content/uploads/2019/08/06book.pdf#page=129">Housing NYC: Rents, Markets and Trends 2006</a>, Appendix G.3, page 129.</td></tr>
+<tr><td>1967–2025</td><td>Homes completed that year.</td><td>Rent Guidelines Board, <a href="https://rentguidelinesboard.cityofnewyork.us/wp-content/uploads/2026/05/2026-HSR.pdf">2026 Housing Supply Report</a>, Appendix 4.</td></tr>
+</table></div>
+<p>The board’s yearly counts are homes in newly built buildings that got a certificate of occupancy from the Department of Buildings, or the equivalent from the state’s Empire State Development Corporation or Dormitory Authority. Temporary certificates were added for 2004 and 2005. From 2010 the board uses City Planning’s Housing Database. Conversions and demolitions are not counted, so the bars show new construction, not the net change in the city’s housing.</p>
+<p>The city’s decade chart doesn’t say how City Planning defined a completed home before 1960, and the 1920s figures come from different record keepers than the modern ones. Treat comparisons across the century as approximate.</p>
+
+<h2>Checks</h2>
+<ul>
+<li>The five boroughs add up to the citywide total in every year from 1960 to 2025.</li>
+<li>The 2006 and 2026 editions of the board’s table match exactly for every borough and year from 1967 to 1999.</li>
+<li>The board’s yearly counts add up to within 1.5% of City Planning’s decade totals for every decade since the 1960s. The 1960s match within 0.1%: 368,959 against 369,000.</li>
+<li>The 1920–1928 apartment counts add up to the printed total of 382,670.</li>
+<li>The build script stops if any of these checks fails.</li>
+</ul>
+
+<h2>The 70,000 line</h2>
+<p>It is a tenth of the “about 700,000 new homes” the city says it needs over the next decade, in its <a href="https://wherewelive.cityofnewyork.us/wp-content/uploads/2026/08/Fair-Housing-Growth-Strategy_Draft-Report.pdf">draft Fair Housing Growth Strategy</a> (Aug. 19, 2026). That is an estimate of need, not a production goal. The draft’s five-year target is 350,000. The final version had not been published as of Nov. 3, 2026.</p>
+
+<h2>The shaded tax-break periods</h2>
+<ul>
+<li><b>1920s exemption.</b> A 1920 state law (Chapter 949, Laws of 1920) let the city exempt new dwellings from local property tax, but not the land under them, until 1932. The city’s ordinance of Feb. 15, 1921 capped the exemption at $1,000 a room and $5,000 a home. Construction had to start by a deadline; the state’s last extension (Chapter 87, Laws of 1924) set it at April 1, 1925, and it was not extended again. In 1923 the city cut the break for apartment buildings to $15,000 per building. The darker shading marks the window to start a building; the lighter shading marks the years the break kept running. Source: Citizens’ Housing and Planning Council, “How Tax Exemption Broke the Housing Deadlock in New York City” (1960), pages 1-8 to 1-10, 2-32 and 2-44. Unresolved: whether the city formally adopted the final 1925 deadline.</li>
+<li><b>421-a.</b> Enacted 1971 (<a href="https://www.tax.ny.gov/research/property/assess/manuals/vol4/pt2/sec4_07/sec421_a.htm">New York State assessor’s manual</a>); closed to new projects June 15, 2022.</li>
+<li><b>485-x.</b> Enacted April 20, 2024 (<a href="https://data.cityofnewyork.us/d/rrtd-iyd7">city open data description</a>).</li>
+</ul>
+<p>The shading shows when each break applied. It doesn’t show how much building each break caused.</p>
+
+<h2>The second chart: homes by decade built</h2>
+<p>Residential units in City Planning’s <a href="https://data.cityofnewyork.us/d/64uk-42ks">PLUTO</a> tax-lot file (August 2026 release), summed by each lot’s year built and grouped by decade. Total: 3,736,645 homes; the 20,024 with no year are left out of the bars. The file counts only buildings still standing, so decades whose buildings were since torn down are undercounted. The city estimates the year for many older buildings: 44% of homes are in buildings dated to a year ending in 0 or 5. A building’s year is the year it was built, not when its homes were added or converted.</p>
+
+<h2>Still missing</h2>
+<p>Yearly counts of all homes for 1929–1959, and for 1920–1928 apart from 1927. The best lead is City Planning’s 1972 tabulation “New Dwelling Units Completed 1921–1971 in New York City,” held at the New York City Municipal Archives. The Rent Guidelines Board plots a 1921–2024 yearly line in its introduction booklet but doesn’t publish the numbers; that line was not traced for these charts.</p>
+
+<h2>Files</h2>
+<p><a href="data.csv" download>data.csv</a> has every number in the first chart with its source. The project folder also holds the source CSVs, the build script (<code>scripts/build.py</code>) and copies of the source documents.</p>
+</main>
+</body>
+</html>

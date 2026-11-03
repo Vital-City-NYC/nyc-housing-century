@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How I built this</title>
+<link rel="stylesheet" href="https://use.typekit.net/qqk2vto.css">
+<style>
+:root{--vc-black:#050507;--vc-body:#262626;--vc-cloud:#dddddd;--vc-charcoal:#707175;--vc-cerulean:#217ebe;--sans:"halyard-text",Inter,"Helvetica Neue",Arial,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--sans);font-size:1rem;line-height:1.55;color:var(--vc-body);background:#fff}
+main{max-width:46rem;margin:0 auto;padding:2rem 1rem 3rem}
+h1{font-weight:900;font-size:1.6rem;line-height:1.2;color:var(--vc-black);margin:0 0 .5rem}
+h2{font-weight:700;font-size:1.15rem;color:var(--vc-black);margin:2rem 0 .5rem}
+h3{font-weight:700;font-size:1rem;color:var(--vc-black);margin:1.4rem 0 .3rem}
+p,li{margin:0 0 .6rem}
+a{color:var(--vc-body);text-decoration-color:var(--vc-cerulean);text-underline-offset:2px}
+dl{margin:0 0 .5rem;display:grid;grid-template-columns:7.5rem 1fr;gap:.2rem .8rem;font-size:.92rem}
+dt{color:var(--vc-charcoal)}
+dd{margin:0}
+.dek{color:var(--vc-charcoal);margin-bottom:1.5rem}
+@media(max-width:560px){dl{grid-template-columns:1fr}dt{margin-top:.3rem}}
+</style>
+</head>
+<body>
+<main>
+<p><a href="../">← Back to the charts</a> · <a href="../methodology.html">Methodology</a></p>
+<h1>How I built this</h1>
+<p class="dek">A step-by-step account of the homebuilding charts and every judgment call behind them, with who made each one. Calls marked “Claude” were made by the AI assistant that built the page and are open to review.</p>
+
+<h2>The build</h2>
+<ol>
+<li>Josh asked for a historical housing-production chart for Alex Yablon’s piece on the 1920s tax exemption, using only verified sources.</li>
+<li>A first research pass found the Rent Guidelines Board’s yearly counts for 1967–2025, the 1928–29 State Board of Housing report’s apartment counts for 1920–1928, tax-lot data on today’s homes and the 485-x filings.</li>
+<li>A second session found yearly counts for 1960–1966 in the board’s 2006 report and the 1927 total of 107,185 in the board’s introduction booklet. It also pinned the 1920s start deadline to a 1924 state law. A third pass rechecked those against the source pages and found City Planning’s decade totals back to the 1920s in the city’s 2025 fair housing plan.</li>
+<li>The source tables were typed or extracted into CSV files in <code>data/</code>, each checked against printed totals.</li>
+<li><code>scripts/build.py</code> runs the checks, then writes <code>data.json</code> for the page and <code>data.csv</code> for download.</li>
+<li>The page draws both charts from <code>data.json</code> with plain JavaScript and SVG, in the Vital City chart style with no logo.</li>
+</ol>
+
+<h2>Judgment calls</h2>
+
+<h3>1. Show decade averages for 1920–1959 instead of leaving them blank</h3>
+<dl>
+<dt>Decision</dt><dd>Each year in 1920–1959 gets a pale bar equal to its decade’s total divided by 10, labeled as a decade average.</dd>
+<dt>Why</dt><dd>A blank 1930s–1950s would hide 694,000 verified homes and make the modern era look bigger than it was relative to midcentury.</dd>
+<dt>Alternative</dt><dd>Leave 1929–1959 empty, or trace the board’s plotted line.</dd>
+<dt>Effect</dt><dd>Hides year-to-year swings inside each decade; the 1927 peak of 107,185 shows as a separate dot above the 1920s average of 72,900.</dd>
+<dt>Who</dt><dd>Josh chose to build with the gaps marked. Claude chose the averaging and its styling.</dd>
+</dl>
+
+<h3>2. Keep the 1920–1928 apartment counts behind a toggle</h3>
+<dl>
+<dt>Decision</dt><dd>The state report’s yearly apartment counts appear only when the reader turns them on.</dd>
+<dt>Why</dt><dd>They count only buildings for three or more families, a different measure from every other bar. Shown by default they would read as total production.</dd>
+<dt>Effect</dt><dd>The default view shows only all-homes measures.</dd>
+<dt>Who</dt><dd>Claude.</dd>
+</dl>
+
+<h3>3. Don’t read the gap between the two 1927 figures as one- and two-family houses</h3>
+<dl>
+<dt>Decision</dt><dd>The difference between 107,185 homes and 79,253 apartments isn’t labeled or charted.</dd>
+<dt>Why</dt><dd>The two sources may define a home differently. An early draft of the research inferred the gap was houses; that was withdrawn.</dd>
+<dt>Who</dt><dd>Second research session; adopted here.</dd>
+</dl>
+
+<h3>4. Don’t trace the board’s 1921–2024 line</h3>
+<dl>
+<dt>Decision</dt><dd>The board’s plotted line isn’t traced to fill in yearly values.</dd>
+<dt>Why</dt><dd>Values read off a chart image would be estimates presented as counts.</dd>
+<dt>Who</dt><dd>Second research session; adopted here.</dd>
+</dl>
+
+<h3>5. Join two editions of the board’s table at 1967</h3>
+<dl>
+<dt>Decision</dt><dd>1960–1966 come from the 2006 report; 1967–2025 come from the 2026 report.</dd>
+<dt>Why</dt><dd>The 2026 report starts in 1967 and has the latest revisions. The two editions match exactly for 1967–1999, so the join adds no break.</dd>
+<dt>Who</dt><dd>Second research session; adopted here.</dd>
+</dl>
+
+<h3>6. Shade the 1920s exemption in two tones</h3>
+<dl>
+<dt>Decision</dt><dd>Darker from February 1921 to April 1, 1925, the window to start a qualifying building; lighter through January 1932, while the break kept running.</dd>
+<dt>Why</dt><dd>Labeling 1921–1931 as one period would imply any home started in those years qualified, which isn’t so.</dd>
+<dt>Who</dt><dd>Claude, following the second session’s finding on the deadline.</dd>
+</dl>
+
+<h3>7. Draw the 70,000 line from the city’s need estimate</h3>
+<dl>
+<dt>Decision</dt><dd>A dashed line at a tenth of the roughly 700,000 homes the draft growth strategy says the city needs over the next decade.</dd>
+<dt>Why</dt><dd>It shows the pace the city’s own estimate implies, using the same unit as the bars.</dd>
+<dt>Alternative</dt><dd>The draft’s five-year target of 350,000 also works out to 70,000 a year, so the line is the same either way.</dd>
+<dt>Who</dt><dd>Claude.</dd>
+</dl>
+
+<h3>8. Headline wording</h3>
+<dl>
+<dt>Decision</dt><dd>“Nearly twice as many as in any decade since.”</dd>
+<dt>Why</dt><dd>729,000 is 1.98 times the next-best decade, the 1960s, at 369,000.</dd>
+<dt>Who</dt><dd>Claude.</dd>
+</dl>
+
+<h3>9. Second chart: keep estimated years, drop unknown ones</h3>
+<dl>
+<dt>Decision</dt><dd>Use PLUTO’s year built as recorded, and leave out the 20,024 homes with no year.</dd>
+<dt>Why</dt><dd>There is no better citywide source for building age. Estimated years usually land in the right decade, and the caveat is printed under the chart.</dd>
+<dt>Effect</dt><dd>The unknown homes are 0.5% of the total.</dd>
+<dt>Who</dt><dd>Claude.</dd>
+</dl>
+
+<h2>Checks run</h2>
+<ul>
+<li>Boroughs add up to totals in all 66 years; the two board editions agree for 1967–1999; yearly sums sit within 1.5% of City Planning’s decade totals; the 1920s apartment counts match the printed total. The build stops if any check fails.</li>
+<li>Every source page was viewed as an image, not only as extracted text.</li>
+<li>The page was checked in a browser at desktop width and at 375 pixels, with no sideways scrolling.</li>
+</ul>
+
+<h2>What this does not do</h2>
+<ul>
+<li>It doesn’t claim any tax break caused the building in its period.</li>
+<li>It doesn’t net out demolitions or count conversions.</li>
+<li>It doesn’t adjust for the city’s population, which has grown since the 1920s.</li>
+</ul>
+
+<h2>Change log</h2>
+<ul>
+<li>Nov. 3, 2026: first version.</li>
+</ul>
+</main>
+</body>
+</html>
